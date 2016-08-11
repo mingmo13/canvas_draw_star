@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<script type="text/javascript">
+window.onload=function () {
+
+	var canvas=document.getElementById('canvas');
+	var context=canvas.getContext('2d');
+
+	canvas.width=1200;
+	canvas.height=800;
+
+	var skyColor=context.createLinearGradient(0,0,0,canvas.height);
+	skyColor.addColorStop(0.0,'black');
+	skyColor.addColorStop(1.0,'#035');
+	context.fillStyle=skyColor;
+	context.fillRect(0,0,canvas.width,canvas.height);
+
+	for (var i = 0; i < 120; i++) {
+		var x=Math.random()*canvas.width;
+		var y=Math.random()*canvas.height*0.65;
+		var r=Math.random()*3+3;//[3,6]
+		var R=Math.random()*5+7;//[7,12]
+		var a=Math.random()*360;
+		drawStar(context,x,y,r,R,a);
+	}
+
+	function drawStar(cxt,x,y,r,R,rot) {
+		cxt.beginPath();
+		cxt.fillStyle='#fb3';
+		for (var i = 0; i < 5; i++) {
+			cxt.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*R+x,-Math.sin((18+i*72-rot)/180*Math.PI)*R+y);
+			cxt.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*r+x,-Math.sin((54+i*72-rot)/180*Math.PI)*r+y);
+
+		}
+		cxt.strokeStyle='#fd5';
+		cxt.lineWidth=3;
+		cxt.lineJoin='round';
+		
+		cxt.fill();
+
+		cxt.closePath();
+		cxt.stroke();
+		
+	}
+}
+</script>
+	<title>1</title>
+</head>
+<body>
+<section>
+	<canvas id="canvas"></canvas>
+</section>
+</body>
+</html>
